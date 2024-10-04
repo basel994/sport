@@ -1,7 +1,9 @@
+import PageHeader from "@/components/pageHeader/PageHeader";
+
 export default function Home() {
   return (
     <div>
-      <h1>Hello world</h1>
+      <PageHeader title="Latest news" icon="/images/home/news.ico" />
     </div>
   );
 }

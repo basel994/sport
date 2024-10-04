@@ -1,0 +1,24 @@
+.navbar {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 1rem;
+    flex: 1;
+}
+.brand {
+    font-size: 1.5rem;
+    color: rgb(11, 118, 189);
+}
+@media screen and ( max-width: 400px ) {
+    .navbar {
+        gap: 0.2rem;
+    }
+    .brand {
+        font-size: 1rem;
+    }
+}
+@media screen and ( max-width: 300px ) {
+    .navbar {
+        flex-wrap: wrap;
+    }
+}

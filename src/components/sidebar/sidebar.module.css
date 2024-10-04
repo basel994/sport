@@ -1,0 +1,10 @@
+.side {
+    display: flex;
+    flex-direction: column;
+    overflow: hidden;
+    white-space: nowrap;
+}
+.side h1 {
+    background-color: rgb(157, 229, 247);
+    text-align: center;
+}

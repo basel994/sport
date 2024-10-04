@@ -1,0 +1,64 @@
+.header {
+    display: flex;
+    align-items: center;
+    padding: 0.5rem 1rem;
+}
+.toggle {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 1.6rem;
+    cursor: pointer;
+}
+.toggle span {
+    background-color: rgb(240, 71, 10);
+    width: 2rem;
+    height: 0.2rem;
+    position: relative;
+    transition: transform 0.5s linear;
+}
+.toggle span::after, .toggle span::before {
+    position: absolute;
+    content: "";
+    width: 100%;
+    height: 100%;
+    background-color: rgb(240, 71, 10);
+}
+.toggle span::after {
+    top: 0.5rem;
+    transition: transform 0.5s linear;
+}
+.toggle span::before {
+    top: -0.5rem;
+}
+.close span {
+    transform: rotate(45deg);
+}
+.close span::after {
+    transform: rotate(-90deg);
+    top: 0;
+}
+.close span::before {
+    display: none;
+}
+.main {
+    display: grid;
+    grid-template-columns: 0fr 1fr;
+    min-height: 100vh;
+    transition: grid-template-columns 0.5s linear;
+    padding: 0.5rem 1rem;
+}
+.open {
+    grid-template-columns: 1fr 3fr;
+    transition: grid-template-columns 0.5s linear;
+}
+.content {
+    padding-left: 2rem;
+    overflow: hidden;
+    white-space: nowrap;
+}
+@media screen and ( max-width: 767px ) {
+    .open {
+        grid-template-columns: 1fr 0fr;
+    }   
+}
