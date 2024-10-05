@@ -9,7 +9,7 @@ export default async function News() {
             {
                 fetchedNews.map((newItem) => {
                     return(
-                        <New newItem={newItem} />
+                        <New key={newItem.id} newItem={newItem} />
                     );
                 })
             }
