@@ -3,6 +3,7 @@ import styles from "./news.module.css";
 import Image from "next/image";
 import { dateForm } from "@/functions/dateForm";
 import { truncateText } from "@/functions/truncateText";
+import Link from "next/link";
 
 export default function New({newItem}: {newItem: NewType}) {
     const date = dateForm(newItem.created_at);
@@ -15,7 +16,7 @@ export default function New({newItem}: {newItem: NewType}) {
                     <Image src="/images/home/new/date.ico" alt="date" width={25} height={25} />
                     <p>{date}</p>
                 </div>
-                <h2>{newItem.title}</h2>
+                <h2><Link href={`/news/${newItem.id}`}>{newItem.title}</Link></h2>
                 <p className={styles.newContent}>{truncate}</p>
             </div>
         </div>

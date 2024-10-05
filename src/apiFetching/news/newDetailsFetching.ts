@@ -1,6 +1,6 @@
 import { NewType } from "@/types/news/newsTypes";
 
-export const newDetailsFetching = async ({id}: {id: string}) => {
+export const newDetailsFetching = async (id: string) => {
     const baseUrl = process.env.NEXT_PUBLIC_BASE_URL;
     try {
         const callApi = await fetch(`${baseUrl}/api/news/${id}`);
