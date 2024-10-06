@@ -4,7 +4,7 @@ import styles from "./navbar.module.css";
 import { cookies } from "next/headers";
 import { tokenDecode } from "@/functions/tokenDecode";
 
-export default function Navbar() {
+export default async function Navbar() {
     const cookiesStore = cookies();
     const token = cookiesStore.get("token");
     
