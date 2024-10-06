@@ -1,4 +1,3 @@
-"use server"
 import Image from "next/image";
 import styles from "./navbar.module.css";
 import { cookies } from "next/headers";
