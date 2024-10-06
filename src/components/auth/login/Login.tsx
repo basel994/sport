@@ -18,16 +18,18 @@ export default function Login() {
         if(email === "" || password === "") {
             setError("Email and Password are required!")
         }
-        else setError("");
-        setLoading(true);
-        const callCheckUser = await checkUser(email, password);
-        if(callCheckUser.error) {
-            setApiResponse(callCheckUser.error);
-        }
         else {
-            redirect("/");
+            setError("");
+            setLoading(true);
+            const callCheckUser = await checkUser(email, password);
+            if(callCheckUser.error) {
+                setApiResponse(callCheckUser.error);
+            }
+            else {
+                redirect("/");
+            }
+            setLoading(false);
         }
-        setLoading(false);
     }
     return(
         <div className={styles.login}>
