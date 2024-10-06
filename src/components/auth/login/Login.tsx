@@ -5,6 +5,7 @@ import SubmitButton from "@/components/formElements/submitButton/SubmitButton";
 import { useState } from "react";
 import { checkUser } from "@/apiFetching/users/checkUser";
 import { useRouter } from "next/navigation";
+import { tokenDecode } from "@/functions/tokenDecode";
 export default function Login() {
     const [email, setEmail] = useState("");
     const [password, setPassword] = useState("");
@@ -27,7 +28,10 @@ export default function Login() {
                 setApiResponse(callCheckUser.error);
             }
             else {
-                router.push("/");
+                const token = callCheckUser.token;
+                const decoded = tokenDecode(token);
+                console.log(decoded);
+
             }
             setLoading(false);
         }
