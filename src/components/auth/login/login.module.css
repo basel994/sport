@@ -1,0 +1,19 @@
+.login {
+    display: flex;
+    justify-content: center;
+    padding: 0.5rem;
+}
+.form {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    flex: 0.5;
+    padding: 2rem;
+    box-shadow: 0rem 0rem 0.1rem 0.1rem rgb(86, 143, 143);
+    border-radius: 1rem;
+}
+@media screen and ( max-width:767px ) {
+    .form {
+        flex: 1;
+    }
+}
