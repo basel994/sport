@@ -4,7 +4,6 @@ import TextInput from "@/components/formElements/textInput/TextInput";
 import SubmitButton from "@/components/formElements/submitButton/SubmitButton";
 import { useState } from "react";
 import { checkUser } from "@/apiFetching/users/checkUser";
-import { useRouter } from "next/navigation";
 import { tokenDecode } from "@/functions/tokenDecode";
 export default function Login() {
     const [email, setEmail] = useState("");
@@ -12,7 +11,6 @@ export default function Login() {
     const [error, setError] = useState("");
     const [apiResponse, setApiResponse] = useState("");
     const [loading, setLoading] = useState(false);
-    const router = useRouter();
     const onSubmit = async(e: React.FormEvent<HTMLFormElement>) => {
         e.preventDefault();
         console.log(email);
