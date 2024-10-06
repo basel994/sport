@@ -4,7 +4,7 @@ import TextInput from "@/components/formElements/textInput/TextInput";
 import SubmitButton from "@/components/formElements/submitButton/SubmitButton";
 import { useState } from "react";
 import { checkUser } from "@/apiFetching/users/checkUser";
-import { tokenDecode } from "@/functions/tokenDecode";
+import { useRouter } from "next/navigation";
 export default function Login() {
     const [email, setEmail] = useState("");
     const [password, setPassword] = useState("");
@@ -26,10 +26,8 @@ export default function Login() {
                 setApiResponse(callCheckUser.error);
             }
             else {
-                const token = callCheckUser.token;
-                const decoded = tokenDecode(token);
-                console.log(decoded);
-
+                const router = useRouter();
+                router.push("/");
             }
             setLoading(false);
         }
