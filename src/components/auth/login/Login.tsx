@@ -11,6 +11,7 @@ export default function Login() {
     const [error, setError] = useState("");
     const [apiResponse, setApiResponse] = useState("");
     const [loading, setLoading] = useState(false);
+    const router = useRouter();
     const onSubmit = async(e: React.FormEvent<HTMLFormElement>) => {
         e.preventDefault();
         console.log(email);
@@ -26,7 +27,6 @@ export default function Login() {
                 setApiResponse(callCheckUser.error);
             }
             else {
-                const router = useRouter();
                 router.push("/");
             }
             setLoading(false);
