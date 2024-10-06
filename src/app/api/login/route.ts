@@ -8,7 +8,7 @@ export async function POST(request: NextRequest) {
         SELECT * FROM users WHERE email=${email} and password=${password}
         `; 
         if(!userQuery.rows[0]) {
-            return NextResponse.json({message: "Invalid credentials"})
+            return NextResponse.json({error: "Invalid credentials"})
         }
         return NextResponse.json({message: "Login successful"});
     } catch(error) {
