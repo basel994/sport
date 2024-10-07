@@ -1,7 +1,8 @@
 import Image from "next/image";
 import styles from "./navbar.module.css";
-
-export default function Navbar({user}: {user: string|undefined}) { 
+import { useUser } from "@/context/userContext";
+export default function Navbar() { 
+    const {user} = useUser();
     return(
         <nav className={styles.navbar}>
             <div className={styles.brand}>
@@ -9,7 +10,7 @@ export default function Navbar({user}: {user: string|undefined}) {
                 <p>Welcome To Basel Sport App</p>
             </div>
             {
-                user && <p className={styles.userName}>{user}</p>
+                user && <p className={styles.userName}>{user.name}</p>
             }
             
         </nav>

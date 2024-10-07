@@ -26,7 +26,7 @@ export async function POST(request: NextRequest) {
                 maxAge: 3600,
                 path: '/'
             });
-        return NextResponse.json({message: "Login successful"});
+        return NextResponse.json({name: userQuery.rows[0].name});
     } catch(error) {
         console.log(error);
         return NextResponse.json({error: "Error logging in"})

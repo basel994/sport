@@ -2,8 +2,7 @@ import type { Metadata } from "next";
 import localFont from "next/font/local";
 import "./globals.css";
 import MainContainer from "@/components/mainContainer/MainContainer";
-import { cookies } from "next/headers";
-import { tokenDecode } from "@/functions/tokenDecode";
+import { UserProvider } from "@/context/userContext";
 
 const geistSans = localFont({
   src: "./fonts/GeistVF.woff",
@@ -26,14 +25,15 @@ export default function RootLayout({
 }: Readonly<{
   children: React.ReactNode;
 }>) {
-  const cookiesStore = cookies();
-  const token = cookiesStore.get("token");
+
   return (
     <html lang="en">
       <body className={`${geistSans.variable} ${geistMono.variable}`}>
-        <MainContainer user = {token?tokenDecode(token.value).name:""}>
-          {children}
+        <UserProvider>
+          <MainContainer>
+            {children}
         </MainContainer>
+        </UserProvider>
       </body>
     </html>
   );

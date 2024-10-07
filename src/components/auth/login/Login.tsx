@@ -5,7 +5,7 @@ import SubmitButton from "@/components/formElements/submitButton/SubmitButton";
 import { useState } from "react";
 import { checkUser } from "@/apiFetching/users/checkUser";
 import { useRouter } from "next/navigation";
-import { revalidatePath } from "next/cache";
+import { useUser } from "@/context/userContext";
 export default function Login() {
     const [email, setEmail] = useState("");
     const [password, setPassword] = useState("");
@@ -13,6 +13,7 @@ export default function Login() {
     const [apiResponse, setApiResponse] = useState("");
     const [loading, setLoading] = useState(false);
     const router = useRouter();
+    const {setUser} = useUser();
     const onSubmit = async(e: React.FormEvent<HTMLFormElement>) => {
         e.preventDefault();
         console.log(email);
@@ -28,7 +29,7 @@ export default function Login() {
                 setApiResponse(callCheckUser.error);
             }
             else {
-                revalidatePath("/", "layout");
+                setUser(callCheckUser.name);
                 router.push("/");
             }
             setLoading(false);
@@ -40,8 +41,7 @@ export default function Login() {
             <TextInput type="email" placeholder="Email" setValue={setEmail} />
             <TextInput type="password" placeholder="Password" setValue={setPassword} />
             <SubmitButton title={`${loading ? "loading..." : "Login"}`} />
-            <p className={styles.error}>{error}</p>
-            <p>{apiResponse}</p>
+            <p className={styles.error}>{error} {apiResponse}</p>
             </form>
         </div>
     );
