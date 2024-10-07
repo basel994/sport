@@ -4,9 +4,9 @@ import jwt from 'jsonwebtoken';
 import { UserType } from '@/types/users/usersType';
 
 export function middleware(req: NextRequest) {  
+    const token = req.cookies.get("token");
     if (req.nextUrl.pathname.startsWith('/dashboard')) {
         try {
-            const token = req.cookies.get("token");
             if (token) { 
                 const decoded  = jwt.verify(token.value, process.env.JWT_SECRET!) as UserType;
                 if(decoded.role !== "admin"){
@@ -19,7 +19,7 @@ export function middleware(req: NextRequest) {
         } catch (err) {  
             console.log(err);
             return NextResponse.redirect(new URL('/login', req.url));  
-        }   
-    } 
-    return NextResponse.next();  
+        }
+        return NextResponse.next();    
+    }  
 }  
