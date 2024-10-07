@@ -5,6 +5,7 @@ import SubmitButton from "@/components/formElements/submitButton/SubmitButton";
 import { useState } from "react";
 import { checkUser } from "@/apiFetching/users/checkUser";
 import { useRouter } from "next/navigation";
+import { revalidatePath } from "next/cache";
 export default function Login() {
     const [email, setEmail] = useState("");
     const [password, setPassword] = useState("");
@@ -27,6 +28,7 @@ export default function Login() {
                 setApiResponse(callCheckUser.error);
             }
             else {
+                revalidatePath("/");
                 router.push("/");
             }
             setLoading(false);
