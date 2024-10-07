@@ -10,7 +10,7 @@ export function middleware(req: NextRequest) {
             if (token) { 
                 const decoded  = jwt.verify(token.value, process.env.JWT_SECRET!) as UserType;
                 if(decoded.role !== "admin"){
-                    return NextResponse.redirect(new URL('/', req.url));
+                    return NextResponse.redirect(new URL('/hello', req.url));
                 }
             }
             else {
@@ -18,7 +18,7 @@ export function middleware(req: NextRequest) {
             }
         } catch (err) {  
             console.log(err);
-            return NextResponse.redirect(new URL('/login', req.url));  
+            return NextResponse.redirect(new URL('/', req.url));  
         }
         return NextResponse.next();    
     }  
