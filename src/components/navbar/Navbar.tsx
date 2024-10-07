@@ -1,3 +1,4 @@
+"use client"
 import Image from "next/image";
 import styles from "./navbar.module.css";
 import { useUser } from "@/context/userContext";
