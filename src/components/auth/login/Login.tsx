@@ -29,7 +29,7 @@ export default function Login() {
                 setApiResponse(callCheckUser.error);
             }
             else {
-                setUser(callCheckUser.name);
+                setUser(callCheckUser);
                 router.push("/");
             }
             setLoading(false);
