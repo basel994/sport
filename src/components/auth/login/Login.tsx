@@ -28,7 +28,7 @@ export default function Login() {
                 setApiResponse(callCheckUser.error);
             }
             else {
-                revalidatePath("/");
+                revalidatePath("/", "layout");
                 router.push("/");
             }
             setLoading(false);
