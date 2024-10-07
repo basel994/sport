@@ -4,7 +4,7 @@ import Navbar from "../navbar/Navbar";
 import styles from "./mainContainer.module.css";
 import Sidebar from "../sidebar/Sidebar";
 
-export default function MainContainer({children}: {children: React.ReactNode}) {
+export default function MainContainer({children, user}: {children: React.ReactNode, user?: string}) {
     const mainRef = useRef<HTMLDivElement>(null);
     const toggleRef = useRef<HTMLDivElement>(null);
     const clickHandle = () => {
@@ -15,7 +15,7 @@ export default function MainContainer({children}: {children: React.ReactNode}) {
         <>
         <div className={styles.header}>
         <div className={styles.toggle} ref={toggleRef} onClick={clickHandle}><span></span></div>
-        <Navbar />
+        <Navbar user = {user}/>
         </div>
         <div className={styles.main} ref={mainRef}>
         <Sidebar />
