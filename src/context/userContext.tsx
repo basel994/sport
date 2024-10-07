@@ -2,6 +2,7 @@
 import React, { createContext, useContext, useState, ReactNode } from 'react';  
 type UserType = {
     name: string;
+    role: string;
 }
 
 interface UserContextType {  
