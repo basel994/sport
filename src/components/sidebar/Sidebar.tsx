@@ -30,7 +30,7 @@ export default function Sidebar() {
                     user?.role === "admin" && <Link href="/dashboard">Dashboard</Link>
                 }
                 {
-                    user && <button>Logout</button>
+                    user && <button onClick={logoutHandle}>Logout</button>
                 }
             </div>
         </div>
