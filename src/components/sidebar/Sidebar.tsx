@@ -13,6 +13,9 @@ export default function Sidebar() {
                 {
                     user?.role === "admin" && <Link href="/dashboard">Dashboard</Link>
                 }
+                {
+                    user && <button>Logout</button>
+                }
             </div>
         </div>
     );

@@ -15,7 +15,12 @@
     align-items: center;
     gap: 1rem;
 }
-.links a {
+.links a, .links button {
     font-size: 1.2rem;
     color: rgb(10, 131, 90);
+}
+.links button {
+    border: none;
+    background-color: transparent;
+    cursor: pointer;
 }
