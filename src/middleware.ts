@@ -1,14 +1,14 @@
 // app/middleware.ts  
 import { NextRequest, NextResponse } from 'next/server';  
-import jwt from 'jsonwebtoken';  
 import { UserType } from '@/types/users/usersType';
+import { jwtDecode } from 'jwt-decode';
 
 export function middleware(req: NextRequest) {  
     const token = req.cookies.get("token");
     if (req.nextUrl.pathname.startsWith('/dashboard')) {
             if (token) { 
                 try {
-                    const decoded  = jwt.verify(token.value, process.env.JWT_SECRET!) as UserType;
+                    const decoded  = jwtDecode(token.value) as UserType;
                     if(decoded.role === "admin"){
                         return NextResponse.next(); 
                     }
