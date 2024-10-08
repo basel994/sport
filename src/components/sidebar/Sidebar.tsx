@@ -25,7 +25,9 @@ export default function Sidebar() {
             <h1>side navbar</h1>
             <div className={styles.links}>
                 <Link href="/">Home</Link>
-                <Link href="/login">Login</Link>
+                {
+                    !user && <Link href="/login">Login</Link>
+                }
                 {
                     user?.role === "admin" && <Link href="/dashboard">Dashboard</Link>
                 }
