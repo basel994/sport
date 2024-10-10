@@ -6,7 +6,7 @@ export async function GET(request: NextRequest, {new_id}: {new_id: string}) {
     headers.get("Accept");
     try {
         const commentsQuery = await sql`
-        SELECT * FROM comments WHERE new_id = ${new_id}
+        SELECT * FROM comments WHERE new_id = ${parseInt(new_id)}
         `;
         return NextResponse.json(commentsQuery.rows);
     } catch(error) {
