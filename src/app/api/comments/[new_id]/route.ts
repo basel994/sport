@@ -1,12 +1,12 @@
 import { sql } from "@vercel/postgres";
 import { NextRequest, NextResponse } from "next/server";
 
-export async function GET(request: NextRequest, {new_id}: {new_id: string}) {
+export async function GET(request: NextRequest, {params}: {params: {new_id: string}}) {
     const headers = request.headers;
     headers.get("Accept");
     try {
         const commentsQuery = await sql`
-        SELECT * FROM comments WHERE new_id = ${parseInt(new_id)}
+        SELECT * FROM comments WHERE new_id = ${parseInt(params.new_id)}
         `;
         return NextResponse.json(commentsQuery.rows);
     } catch(error) {
