@@ -5,7 +5,7 @@ export const userDetailsFetching = async (id: string) => {
         if(!callApi.ok) {
             throw new Error("HTTP error")
         }
-        const apiResponse: {name: string, image?: string}[] = await callApi.json();
+        const apiResponse = await callApi.json();
         return apiResponse.length > 0 ? apiResponse[0] : null;
     } catch(error) {
         console.log(error);
