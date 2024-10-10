@@ -1,7 +1,7 @@
 import { commentsFetching } from "@/apiFetching/comments/commentsFetching";
 import styles from "./comments.module.css";
 import { userDetailsFetching } from "@/apiFetching/users/getUserDetails";
-import Image from "next/image";
+
 export default async function Comments({new_id}: {new_id: string}) {
     const commentsFetch = await commentsFetching(new_id);
     return(
