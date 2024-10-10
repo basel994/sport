@@ -10,7 +10,7 @@ export default async function Comments({new_id}: {new_id: string}) {
             {commentsFetch.map(async(comment) => {
                 const userDetails= await userDetailsFetching((String(comment.user_id)));
                 return(
-                    <div className={styles.comment}>
+                    <div key={comment.id} className={styles.comment}>
                         <div className={styles.user}>
                             {userDetails?.image && <Image src={userDetails.image} alt="" width={30} height={30} />}
                             <h3>{userDetails?.name}</h3>
