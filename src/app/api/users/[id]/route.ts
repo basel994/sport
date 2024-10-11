@@ -6,7 +6,7 @@ export async function GET(request: NextRequest,{params}: {params: {id: string}})
         const headers = request.headers;
         headers.get("Accept");
         const userQuery = await sql`
-        SELECT name FROM users WHERE id = ${parseInt(params.id)}
+        SELECT name, image FROM users WHERE id = ${parseInt(params.id)}
         `;
         return NextResponse.json(userQuery.rows);
     } catch(error) {
