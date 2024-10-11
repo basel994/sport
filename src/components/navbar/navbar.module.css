@@ -16,6 +16,11 @@
     font-size: 1.5rem;
     color: rgb(11, 118, 189);
 }
+.users {
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+}
 .userName {
     font-size: 1.2rem;
     color: rgb(129, 63, 15);

@@ -11,7 +11,10 @@ export default function Navbar() {
                 <p>Welcome To Basel Sport App</p>
             </div>
             {
-                user && <p className={styles.userName}>{user.name}</p>
+                user && <div className={styles.users}>
+                    <Image src={user.image ? user.image : "/images/users/noImage.ico"} alt="" width={30} height={30} />
+                    <p className={styles.userName}>{user.name}</p>
+                </div>
             }
             
         </nav>
