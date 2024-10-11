@@ -16,6 +16,7 @@ export default function Sidebar() {
         }
         else {
             setUser(null);
+            localStorage.removeItem("user");
             console.log(logoutResponse.message);
             router.push("/");
         }
