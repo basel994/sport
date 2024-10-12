@@ -1,8 +1,9 @@
-export const dynamic = "force-dynamic";
 import { sql } from "@vercel/postgres";
-import { NextResponse } from "next/server";
+import { NextRequest, NextResponse } from "next/server";
 
-export async function GET() {
+export async function GET(request: NextRequest) {
+    const headers = request.headers;
+    headers.get("Accept");
     try {
         const newsQuery = await sql`
         SELECT * FROM news
