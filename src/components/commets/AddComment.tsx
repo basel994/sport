@@ -7,7 +7,6 @@ import { FormEvent, useState } from "react";
 import FileInput from "../formElements/fileInput/FileInput";
 import SubmitButton from "../formElements/submitButton/SubmitButton";
 import { addComment } from "@/apiFetching/comments/addComment";
-import { revalidatePath } from "next/cache";
 import { useRouter } from "next/navigation";
 
 export default function AddComment({new_id}: {new_id: string}) {
@@ -27,7 +26,6 @@ export default function AddComment({new_id}: {new_id: string}) {
         }
         const callApi = await addComment(formData);
         setMessage(callApi.message);
-        revalidatePath("/news");
         router.prefetch(`/news/${new_id}`);
 
     }
