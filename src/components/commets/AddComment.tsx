@@ -29,7 +29,7 @@ export default function AddComment({new_id}: {new_id: string}) {
     return(
         <div>
             {
-                !user && 
+                user && 
                 <form className={styles.commentForm} onSubmit={onSubmit}>
                     <TextInput type="text" placeholder="type a comment" setValue={setComment} />
                     <FileInput  changed={setCommentImage} icon="/images/comments/imageFile.ico" />
