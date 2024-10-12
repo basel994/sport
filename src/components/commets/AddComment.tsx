@@ -3,7 +3,7 @@
 import { useUser } from "@/context/userContext";
 import styles from "./comments.module.css";
 import TextInput from "../formElements/textInput/TextInput";
-import { useState } from "react";
+import { FormEvent, useState } from "react";
 import FileInput from "../formElements/fileInput/FileInput";
 import SubmitButton from "../formElements/submitButton/SubmitButton";
 import { addComment } from "@/apiFetching/comments/addComment";
@@ -15,7 +15,8 @@ export default function AddComment({new_id}: {new_id: string}) {
     const [commentImage, setCommentImage] = useState<File>();
     const [message, setMessage] = useState("");
     console.log(comment);
-    const onSubmit = async () => {
+    const onSubmit = async (e: FormEvent<HTMLFormElement>) => {
+        e.preventDefault();
         const formData = new FormData();
         formData.append("new_id", new_id);
         formData.append("content", comment);
