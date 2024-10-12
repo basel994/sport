@@ -28,7 +28,7 @@ export default function AddComment({new_id}: {new_id: string}) {
         const callApi = await addComment(formData);
         setMessage(callApi.message);
         revalidatePath("/news");
-        router.push(`/news/${new_id}`);
+        router.prefetch(`/news/${new_id}`);
 
     }
     return(
