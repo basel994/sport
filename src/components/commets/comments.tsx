@@ -30,7 +30,7 @@ export default async function Comments({new_id}: {new_id: string}) {
                     </div>
                 );
             })}
-            <AddComment />
+            <AddComment new_id = {new_id} />
         </div>
     );
 }

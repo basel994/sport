@@ -2,6 +2,8 @@ import { cookies } from "next/headers";
 import { NextRequest, NextResponse } from "next/server";
 import cloudinary from "cloudinary";
 import { sql } from "@vercel/postgres";
+import { jwtDecode } from "jwt-decode";
+import { UserType } from "@/types/users/usersType";
 
 cloudinary.v2.config({  
     cloud_name: process.env.CLOUDINARY_CLOUD_NAME,  
@@ -15,9 +17,10 @@ export async function POST(request: NextRequest) {
     const cookiesStor = cookies();
     const token = cookiesStor.get("token");
     if(token) {
+        const decoded  = jwtDecode(token.value) as UserType;
+        const comment_user_id = decoded.id;
         const formData = await request.formData();
         const comment_new_id = formData.get("new_id") as string;
-        const comment_user_id = formData.get("user_id") as string;
         const comment_content = formData.get("content") as string;
         const comment_image = formData.get("image") as File;
         try {
@@ -40,7 +43,7 @@ export async function POST(request: NextRequest) {
                   const uploadResult = await uploadResultPromise;
                   const res = await sql`  
                   INSERT INTO comments(new_id, user_id, content, image)   
-                  VALUES (${comment_new_id}, ${comment_user_id}, ${comment_content}, ${uploadResult.secure_url})  
+                  VALUES (${parseInt(comment_new_id)}, ${comment_user_id}, ${comment_content}, ${uploadResult.secure_url})  
                   RETURNING id;  
                 `;  
                 return NextResponse.json({ id: res.rows[0].id, message: 'your comment has been saved successfully' }, { status: 201 }); 
@@ -48,7 +51,7 @@ export async function POST(request: NextRequest) {
             else {
                 const res = await sql`  
                 INSERT INTO comments(new_id, user_id, content)   
-                VALUES (${comment_new_id}, ${comment_user_id}, ${comment_content})  
+                VALUES (${parseInt(comment_new_id)}, ${comment_user_id}, ${comment_content})  
                 RETURNING id;  
               `;  
               return NextResponse.json({ id: res.rows[0].id, message: 'your comment has been saved successfully' }, { status: 201 }); 
