@@ -7,7 +7,7 @@ import { FormEvent, useState } from "react";
 import FileInput from "../formElements/fileInput/FileInput";
 import SubmitButton from "../formElements/submitButton/SubmitButton";
 import { addComment } from "@/apiFetching/comments/addComment";
-import { revalidateTag } from "next/cache";
+import { revalidatePath } from "next/cache";
 
 export default function AddComment({new_id}: {new_id: string}) {
     const {user} = useUser();
@@ -25,7 +25,7 @@ export default function AddComment({new_id}: {new_id: string}) {
         }
         const callApi = await addComment(formData);
         setMessage(callApi.message);
-        revalidateTag("comments");
+        revalidatePath("/news");
     }
     return(
         <div>
