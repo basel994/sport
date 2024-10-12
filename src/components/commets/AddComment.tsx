@@ -8,8 +8,10 @@ import FileInput from "../formElements/fileInput/FileInput";
 import SubmitButton from "../formElements/submitButton/SubmitButton";
 import { addComment } from "@/apiFetching/comments/addComment";
 import { revalidatePath } from "next/cache";
+import { useRouter } from "next/navigation";
 
 export default function AddComment({new_id}: {new_id: string}) {
+    const router = useRouter();
     const {user} = useUser();
     const [comment, setComment] = useState("");
     const [commentImage, setCommentImage] = useState<File>();
@@ -26,6 +28,8 @@ export default function AddComment({new_id}: {new_id: string}) {
         const callApi = await addComment(formData);
         setMessage(callApi.message);
         revalidatePath("/news");
+        router.push(`/news/${new_id}`);
+
     }
     return(
         <div>
