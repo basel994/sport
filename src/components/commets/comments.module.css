@@ -30,3 +30,8 @@
     font-size: 0.8rem;
     font-weight: bold;
 }
+.commentForm {
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+}

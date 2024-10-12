@@ -3,6 +3,7 @@ import styles from "./comments.module.css";
 import { userDetailsFetching } from "@/apiFetching/users/getUserDetails";
 import Image from "next/image";
 import { dateForm } from "@/functions/dateForm";
+import AddComment from "./AddComment";
 
 export default async function Comments({new_id}: {new_id: string}) {
     const commentsFetch = await commentsFetching(new_id);
@@ -29,6 +30,7 @@ export default async function Comments({new_id}: {new_id: string}) {
                     </div>
                 );
             })}
+            <AddComment />
         </div>
     );
 }
