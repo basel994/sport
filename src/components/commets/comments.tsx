@@ -16,7 +16,7 @@ export default async function Comments({new_id}: {new_id: string}) {
             {commentsFetch.map(async(comment) => {
                 const userDetails: {name: string, image?: string}= await userDetailsFetching((String(comment.user_id)));
                 return(
-                    <Comment comment={comment} userDetails={userDetails} />
+                    <Comment key={comment.id} comment={comment} userDetails={userDetails} />
                 );
             })
             }

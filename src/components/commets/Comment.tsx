@@ -9,7 +9,7 @@ import ButtonWithIcon from "../button/ButtonWithIcon";
 export default function Comment({comment, userDetails}: {comment: commentType, userDetails: {name: string, image?: string}}) {
     const {user} = useUser();
     return(
-        <div key={comment.id} className={styles.comment}>
+        <div className={styles.comment}>
         <div className={styles.info}>
             <div className={styles.user}>
                 {
