@@ -12,6 +12,7 @@ export default function AddComment() {
     const {user} = useUser();
     const [comment, setComment] = useState("");
     const [commentImage, setCommentImage] = useState<File>();
+    console.log(comment);
     return(
         <div>
             {
