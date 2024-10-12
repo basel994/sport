@@ -35,3 +35,8 @@
     align-items: center;
     gap: 1rem;
 }
+.controlButtons {
+    display: flex;
+    align-items: center;
+    gap: 2rem;
+}

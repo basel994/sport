@@ -1,9 +1,9 @@
 import { commentsFetching } from "@/apiFetching/comments/commentsFetching";
 import styles from "./comments.module.css";
-import { userDetailsFetching } from "@/apiFetching/users/getUserDetails";
 import Image from "next/image";
-import { dateForm } from "@/functions/dateForm";
 import AddComment from "./AddComment";
+import Comment from "./Comment";
+import { userDetailsFetching } from "@/apiFetching/users/getUserDetails";
 
 export default async function Comments({new_id}: {new_id: string}) {
     const commentsFetch = await commentsFetching(new_id);
@@ -16,20 +16,10 @@ export default async function Comments({new_id}: {new_id: string}) {
             {commentsFetch.map(async(comment) => {
                 const userDetails: {name: string, image?: string}= await userDetailsFetching((String(comment.user_id)));
                 return(
-                    <div key={comment.id} className={styles.comment}>
-                        <div className={styles.info}>
-                            <div className={styles.user}>
-                                {
-                                    <Image src={userDetails.image ? userDetails.image : "/images/home/new/noImage.ico"} alt="" width={40} height={40} />
-                                }
-                                <h4>{userDetails?.name}</h4>
-                            </div>
-                            <p className={styles.date}>{dateForm(comment.created_at)}</p>
-                        </div>
-                        <p>{comment.content}</p>
-                    </div>
+                    <Comment comment={comment} userDetails={userDetails} />
                 );
-            })}
+            })
+            }
             <AddComment new_id = {new_id} />
         </div>
     );

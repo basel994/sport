@@ -1,0 +1,13 @@
+import Image from "next/image";
+import styles from "./button.module.css";
+
+export default function ButtonWithIcon({size, icon}: {size: number, icon: string}) {
+        return(
+            <div className={styles.container} style={{
+                width: `${size}px`,
+                height: `${size}px`
+            }}>
+             <Image src={icon} alt="" width={size} height={size} />
+            </div>
+        );
+    }
