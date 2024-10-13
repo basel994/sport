@@ -2,8 +2,7 @@ import { sql } from "@vercel/postgres";
 import { NextRequest, NextResponse } from "next/server";  
 
 export async function DELETE(request: NextRequest, { params }: { params: { id: string } }) {  
-    const headers = request.headers;  
-    const token = headers.get("token");  
+    const token = request.cookies.get("token");  
  
     if (!token) {  
         return NextResponse.json({ error: "Unauthorized: No token provided" }, { status: 401 });  
