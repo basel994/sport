@@ -6,7 +6,9 @@ export default function ButtonWithIcon({size, icon, clicked}: {size: number, ico
             <div className={styles.container} style={{
                 width: `${size}px`,
                 height: `${size}px`
-            }}>
+            }} 
+            onClick={clicked}
+            >
              <Image src={icon} alt="" width={size} height={size} />
             </div>
         );
