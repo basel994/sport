@@ -46,7 +46,7 @@ export default function Comment({comment, userDetails}: {comment: commentType, u
         {
             user?.id === comment.user_id && <div className={styles.controlButtons}>
                 <ButtonWithIcon size={20} icon="/images/buttons/edit.ico" />
-                <ButtonWithIcon size={20} icon="/images/buttons/trash.ico" />
+                <ButtonWithIcon size={20} icon="/images/buttons/trash.ico" clicked={deleteHandle} />
             </div>
         }
         {
