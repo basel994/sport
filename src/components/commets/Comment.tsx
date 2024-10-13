@@ -5,9 +5,29 @@ import Image from "next/image";
 import { dateForm } from "@/functions/dateForm";
 import { useUser } from "@/context/userContext";
 import ButtonWithIcon from "../button/ButtonWithIcon";
+import { deleteComment } from "@/apiFetching/comments/deleteComment";
+import { useRouter } from "next/navigation";
+import { useState } from "react";
+import TimedNotification from "../timedNotification/TimedNotification";
 
 export default function Comment({comment, userDetails}: {comment: commentType, userDetails: {name: string, image?: string}}) {
+    const router = useRouter();
     const {user} = useUser();
+    const [error, setError] = useState("");
+    const [message, setMessage] = useState("");
+
+    const deleteHandle = async() => {
+        const callApi = await deleteComment(String(comment.id));
+        if(!callApi.error) {
+            setError("");
+            setMessage(callApi.message);
+            router.refresh();
+        }
+        else {
+            setError(callApi.error);
+            setMessage("");
+        }
+    }
     return(
         <div className={styles.comment}>
         <div className={styles.info}>
@@ -29,7 +49,12 @@ export default function Comment({comment, userDetails}: {comment: commentType, u
                 <ButtonWithIcon size={20} icon="/images/buttons/trash.ico" />
             </div>
         }
-        
+        {
+          message !== "" && <TimedNotification bg="black" color="white" duration={5000} message={message} />
+        }
+                {
+          error !== "" && <TimedNotification bg="cyan" color="red" duration={5000} message={error} />
+        }
     </div>
     );
 }
