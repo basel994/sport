@@ -82,8 +82,11 @@ export async function PATCH(request: NextRequest, { params }: { params: { id: st
                   WHERE id = ${parseInt(params.id)}  
                   RETURNING * 
                   `;  
-                return NextResponse.json({message: 'your comment has been updated successfully' }, { status: 201 }); 
-            
+                  if (res.rows.length === 0) {  
+                    return NextResponse.json({ error: "Comment not found" }, { status: 404 });  
+                }  
+        
+                return NextResponse.json({ message: "Comment has been updated" }, { status: 200 });            
         }  
  
 
