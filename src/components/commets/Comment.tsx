@@ -94,7 +94,7 @@ export default function Comment({comment, userDetails}: {comment: commentType, u
             comment.image && <Image src={comment.image} alt="" width={100} height={100} />
         }
         {
-            user?.id !== comment.user_id && <div className={styles.controlButtons}>
+            user?.id === comment.user_id && <div className={styles.controlButtons}>
                 <ButtonWithIcon size={20} icon="/images/buttons/edit.ico" clicked={updateClick} />
                 <ButtonWithIcon size={20} icon="/images/buttons/trash.ico" clicked={deleteClick} />
             </div>
