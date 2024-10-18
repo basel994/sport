@@ -1,8 +1,9 @@
-export const deleteComment = async (comment_id: string) => {
+export const updateComment = async (comment_id: string, formData: FormData) => {
     const baseUrl = process.env.NEXT_PUBLIC_BASE_URL;
     try {
         const callApi = await fetch(`${baseUrl}/api/comments/commentMutation/${comment_id}`, {
-            method: "DELETE",
+            method: "PATCH",
+            body: formData,
         });
         if(!callApi.ok) {
             throw new Error("HTTP error")
@@ -11,6 +12,6 @@ export const deleteComment = async (comment_id: string) => {
         return apiResponse;
     } catch(error) {
         console.log(error);
-        return {message: "Something went wrong! please try again"};
+        return {error: "Something went wrong! please try again"};
     }
 }

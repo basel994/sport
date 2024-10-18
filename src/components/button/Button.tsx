@@ -5,12 +5,14 @@ export default function Button({
     height, 
     title, 
     bg, 
-    color}: {
+    color,
+clicked,}: {
         width?: number;
         height?: number;
         title: string;
         bg?: string;
         color?: string;
+        clicked: () => void
     }) {
         return(
             <button style={{
@@ -20,6 +22,7 @@ export default function Button({
                 color: color,
             }} 
             className={styles.btn} 
+            onClick={clicked}
             >
                 {title}
             </button>
