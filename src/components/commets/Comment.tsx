@@ -50,18 +50,22 @@ export default function Comment({comment, userDetails}: {comment: commentType, u
         }
         const callApi = await updateComment(String(comment.id), formData);
         if(callApi.error) {
-            setError(callApi.error)
+            setError(callApi.error);
+            setMessage("");
         }
         else {
             setMessage(callApi.message);
+            setError("");
+            setVisible(false);
             router.refresh();
         }
     }
     const deleteHandle = async() => {
         const callApi = await deleteComment(String(comment.id));
         if(!callApi.error) {
-            setError("");
             setMessage(callApi.message);
+            setError("");
+            setVisible(false);
             router.refresh();
         }
         else {
@@ -105,7 +109,10 @@ export default function Comment({comment, userDetails}: {comment: commentType, u
         {
             error !== "" && <TimedNotification bg="cyan" color="red" duration={5000} message={error} />
         }
-        <Modal visible={visible} closed={setVisible} title={`${action === "update" ? "Update" : "Delete"} comment ${comment.id}`} modalBody={modalBody} onOk={onOk} />
+        <Modal visible={visible} 
+        closed={setVisible} 
+        title={`${action === "update" ? "Update" : "Delete"} comment ${comment.id}`} 
+        modalBody={modalBody} onOk={onOk} />
     </div>
     );
 }
