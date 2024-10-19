@@ -3,30 +3,32 @@ import styles from "./../sharedStyles.module.css";
 import TextInput from "@/components/formElements/textInput/TextInput";
 import SubmitButton from "@/components/formElements/submitButton/SubmitButton";
 import { useState } from "react";
-import { checkUser } from "@/apiFetching/users/checkUser";
 import { useRouter } from "next/navigation";
 import { useUser } from "@/context/userContext";
-export default function Login() {
+import { registerProcess } from "@/apiFetching/users/registerProcess";
+export default function Register() {
     const [email, setEmail] = useState("");
+    const [name, setName] = useState("");
     const [password, setPassword] = useState("");
     const [error, setError] = useState("");
+    const [apiResponse, setApiResponse] = useState("");
     const [loading, setLoading] = useState(false);
     const router = useRouter();
     const {setUser} = useUser();
     const onSubmit = async(e: React.FormEvent<HTMLFormElement>) => {
         e.preventDefault();
-        if(email === "" || password === "") {
-            setError("Email and Password are required!")
+        if(email === "" || password === "" || name === "") {
+            setError("Email, Password and Name are required!")
         }
         else {
             setError("");
             setLoading(true);
-            const callCheckUser = await checkUser(email, password);
-            if(callCheckUser.error) {
-                setError(callCheckUser.error);
+            const callRegister = await registerProcess(email, name, password);
+            if(callRegister.error) {
+                setError(callRegister.error);
             }
             else {
-                setUser(callCheckUser);
+                setUser(callRegister);
                 router.push("/");
             }
             setLoading(false);
@@ -35,9 +37,10 @@ export default function Login() {
     return(
         <div className={styles.formContainer}>
             <form className={styles.form} onSubmit={onSubmit}>
+            <TextInput type="text" placeholder="Name" setValue={setName} />
             <TextInput type="email" placeholder="Email" setValue={setEmail} />
             <TextInput type="password" placeholder="Password" setValue={setPassword} />
-            <SubmitButton title={`${loading ? "loading..." : "Login"}`} />
+            <SubmitButton title={`${loading ? "loading..." : "Register"}`} />
             <p className={styles.error}>{error}</p>
             </form>
         </div>
