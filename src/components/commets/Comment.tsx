@@ -10,8 +10,6 @@ import { useRouter } from "next/navigation";
 import { useState } from "react";
 import TimedNotification from "../timedNotification/TimedNotification";
 import Modal from "../modal/Modal";
-import TextInput from "../formElements/textInput/TextInput";
-import FileInput from "../formElements/fileInput/FileInput";
 import { updateComment } from "@/apiFetching/comments/updateComment";
 import { truncateText } from "@/functions/truncateText";
 import UpdateBody from "./UpdateBody";
