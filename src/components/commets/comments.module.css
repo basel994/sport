@@ -43,6 +43,15 @@
 }
 .editImage {
     display: flex;
+    flex-direction: column;
+    justify-content: center;
+    gap: 1rem;
+}
+.imageCtrl {
+    display: flex;
     align-items: center;
-    gap: 2rem;
+    gap: 1rem;
+}
+.deleteConfirm {
+    color: rgb(243, 94, 94);
 }

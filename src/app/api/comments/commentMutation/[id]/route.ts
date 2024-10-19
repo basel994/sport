@@ -35,20 +35,37 @@ export async function PATCH(request: NextRequest, { params }: { params: { id: st
     }  
     const formData = await request.formData();
     const newContent = formData.get("newContent") as string;
+    const oldImage = formData.get("oldImage") as string;
     const newImage = formData.get("newImage") as File;
     try {  
         if(!newImage){
-            const result = await sql`  
-            UPDATE comments
-            SET content = ${newContent}  
-            WHERE id = ${parseInt(params.id)}  
-            RETURNING *  
-        `;
-        if (result.rows.length === 0) {  
-            return NextResponse.json({ error: "Comment not found" }, { status: 404 });  
-        }  
-
-        return NextResponse.json({ message: "Comment has been updated" }, { status: 200 });  
+            if(oldImage) {
+                const result = await sql`  
+                UPDATE comments
+                SET content = ${newContent}  
+                WHERE id = ${parseInt(params.id)}  
+                RETURNING *  
+                `;
+                if (result.rows.length === 0) {  
+                  return NextResponse.json({ error: "Comment not found" }, { status: 404 });  
+                }  
+    
+                return NextResponse.json({ message: "Comment has been updated" }, { status: 200 }); 
+            } 
+            else {
+                const result = await sql`  
+                UPDATE comments
+                SET content = ${newContent}, 
+                image = ${null} 
+                WHERE id = ${parseInt(params.id)}  
+                RETURNING *  
+                `;
+                if (result.rows.length === 0) {  
+                  return NextResponse.json({ error: "Comment not found" }, { status: 404 });  
+                }  
+    
+                return NextResponse.json({ message: "Comment has been updated" }, { status: 200 }); 
+            } 
         }
         else {
             cloudinary.v2.config({  

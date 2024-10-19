@@ -11,6 +11,6 @@ export const deleteComment = async (comment_id: string) => {
         return apiResponse;
     } catch(error) {
         console.log(error);
-        return {message: "Something went wrong! please try again"};
+        return {error: "Something went wrong! please try again"};
     }
 }

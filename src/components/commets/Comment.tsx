@@ -14,6 +14,7 @@ import TextInput from "../formElements/textInput/TextInput";
 import FileInput from "../formElements/fileInput/FileInput";
 import { updateComment } from "@/apiFetching/comments/updateComment";
 import { truncateText } from "@/functions/truncateText";
+import UpdateBody from "./UpdateBody";
 
 export default function Comment({comment, userDetails}: {comment: commentType, userDetails: {name: string, image?: string}}) {
     const router = useRouter();
@@ -24,34 +25,46 @@ export default function Comment({comment, userDetails}: {comment: commentType, u
     const [visible, setVisible] = useState<boolean>(false);
     const [newContent, setNewContent] = useState(comment.content);
     const [newImage, setNewImage] = useState<File|undefined>(undefined);
-    const oldImage = comment.image;
+    const [oldImage, setOldImage] = useState<string|null>(comment.image);
 
-    const modalBody = action === "update" ? <div>
-        <TextInput placeholder="content" setValue={setNewContent} type="text" value={newContent} />
-            {
-                oldImage ?
-                <div className={styles.editImage}>
-                    <Image src={newImage?URL.createObjectURL(newImage):oldImage} alt="" width={50} height={50} />
-                    <FileInput changed={setNewImage} title="edit image"/>
-                </div> :
-                <div className={styles.editImage}>
-                    {newImage && <Image src={URL.createObjectURL(newImage)} alt="" width={50} height={50} />}
-                    <FileInput changed={setNewImage} icon="/images/comments/imageFile.ico"/>
-                </div>
-            }
+    const modalBody = action === "update" ? <UpdateBody 
+    newContent={newContent} 
+    setNewContent={setNewContent} 
+    oldImage={oldImage} 
+    setOldImage={setOldImage}
+    newImage={newImage} 
+    setNewImage={setNewImage}/> :
+    <div>
+        <h3 className={styles.deleteConfirm}>Are you sure you want to delete this comment: </h3>
+        <p>{`"${truncateText(comment.content, 10)}"`}</p>
+    </div>;
+    
+    const updateClick = () => {
+        setAction("update");
+        setVisible(true);
+        setNewContent(comment.content);
+        setOldImage(comment.image);
+    }
+    
+    const deleteClick = () => {
+        setAction("delete");
+        setVisible(true);
+    }
 
-    </div> :
-    <h3>{`Are you sure you want to delete this comment: " ${truncateText(comment.content, 10)} "`}</h3>;
     const updateHandle = async() => {
         const formData = new FormData();
         formData.append("newContent", newContent);
         if(newImage) {
             formData.append("newImage", newImage);
         }
+        if(oldImage) {
+            formData.append("oldImage", oldImage);
+        }
         const callApi = await updateComment(String(comment.id), formData);
         if(callApi.error) {
             setError(callApi.error);
             setMessage("");
+            setVisible(false);
         }
         else {
             setMessage(callApi.message);
@@ -60,6 +73,7 @@ export default function Comment({comment, userDetails}: {comment: commentType, u
             router.refresh();
         }
     }
+
     const deleteHandle = async() => {
         const callApi = await deleteComment(String(comment.id));
         if(!callApi.error) {
@@ -71,17 +85,12 @@ export default function Comment({comment, userDetails}: {comment: commentType, u
         else {
             setError(callApi.error);
             setMessage("");
+            setVisible(false);
         }
     }
+
     const onOk = action === "update" ? updateHandle : deleteHandle;
-    const updateClick = () => {
-        setAction("update");
-        setVisible(true);
-    }
-    const deleteClick = () => {
-        setAction("delete");
-        setVisible(true);
-    }
+    
     return(
         <div className={styles.comment}>
         <div className={styles.info}>
@@ -98,21 +107,22 @@ export default function Comment({comment, userDetails}: {comment: commentType, u
             comment.image && <Image src={comment.image} alt="" width={100} height={100} />
         }
         {
-            user?.id === comment.user_id && <div className={styles.controlButtons}>
+            user?.id !== comment.user_id && <div className={styles.controlButtons}>
                 <ButtonWithIcon size={20} icon="/images/buttons/edit.ico" clicked={updateClick} />
                 <ButtonWithIcon size={20} icon="/images/buttons/trash.ico" clicked={deleteClick} />
             </div>
         }
         {
-            message !== "" && <TimedNotification bg="black" color="white" duration={5000} message={message} />
+            message !== "" && <TimedNotification bg="rgba(0, 0, 0, 0.5)" color="white" duration={5000} message={message} />
         }
         {
-            error !== "" && <TimedNotification bg="cyan" color="red" duration={5000} message={error} />
+            error !== "" && <TimedNotification bg="rgba(214, 1, 1, 0.5)" color="white" duration={5000} message={error} />
         }
         <Modal visible={visible} 
         closed={setVisible} 
         title={`${action === "update" ? "Update" : "Delete"} comment ${comment.id}`} 
-        modalBody={modalBody} onOk={onOk} />
+        modalBody={modalBody} onOk={onOk} 
+        headerBg={action==="update" ? "rgb(168, 224, 241)" : "rgb(248, 166, 166)"}/>
     </div>
     );
 }

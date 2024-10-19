@@ -12,7 +12,7 @@ clicked,}: {
         title: string;
         bg?: string;
         color?: string;
-        clicked: () => void
+        clicked?: () => void
     }) {
         return(
             <button style={{
