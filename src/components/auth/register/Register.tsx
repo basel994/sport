@@ -11,7 +11,6 @@ export default function Register() {
     const [name, setName] = useState("");
     const [password, setPassword] = useState("");
     const [error, setError] = useState("");
-    const [apiResponse, setApiResponse] = useState("");
     const [loading, setLoading] = useState(false);
     const router = useRouter();
     const {setUser} = useUser();
