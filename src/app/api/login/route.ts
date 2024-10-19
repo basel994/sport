@@ -29,6 +29,6 @@ export async function POST(request: NextRequest) {
         return NextResponse.json({id: userQuery.rows[0].id, name: userQuery.rows[0].name, role: userQuery.rows[0].role, image: userQuery.rows[0].image});
     } catch(error) {
         console.log(error);
-        return NextResponse.json({error: "Error logging in"})
+        return NextResponse.json({error: "Error logging in"});
     }
 }
