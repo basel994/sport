@@ -24,7 +24,7 @@ export async function POST(request: NextRequest) {
         else {
             const addQuery = await sql `
             INSERT INTO users (name, email, password, role) 
-            VALUES (${name}, ${email}, ${password}, "normal") 
+            VALUES (${name}, ${email}, ${password}, 'normal') 
             RETURNING id
             `;
             const secret = process.env.JWT_SECRET!;
