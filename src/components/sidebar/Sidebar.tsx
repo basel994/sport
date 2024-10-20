@@ -23,11 +23,13 @@ export default function Sidebar() {
     }
     return(
         <div className={styles.side}>
-            <h1>side navbar</h1>
             <div className={styles.links}>
                 <Link href="/">Home</Link>
                 {
                     !user && <Link href="/login">Login</Link>
+                }
+                {
+                    !user && <Link href="/register">Register</Link>
                 }
                 {
                     user?.role === "admin" && <Link href="/dashboard">Dashboard</Link>
