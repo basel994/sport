@@ -59,12 +59,12 @@ export async function POST(request: NextRequest) {
  
         } catch(error) {
             console.error(error);  
-            return NextResponse.json({ message: 'Failed to create comment' }, { status: 500 }); 
+            return NextResponse.json({ error: 'Failed to create comment' }, { status: 500 }); 
         }
 
 
     }
     else {
-        return NextResponse.json({ message: 'Authentication error' }, { status: 500 }); 
+        return NextResponse.json({ error: 'Authentication error' }, { status: 500 }); 
     }
 }

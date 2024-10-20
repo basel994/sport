@@ -8,6 +8,7 @@ import FileInput from "../formElements/fileInput/FileInput";
 import SubmitButton from "../formElements/submitButton/SubmitButton";
 import { addComment } from "@/apiFetching/comments/addComment";
 import { useRouter } from "next/navigation";
+import TimedNotification from "../timedNotification/TimedNotification";
 
 export default function AddComment({new_id}: {new_id: string}) {
     const router = useRouter();
@@ -15,6 +16,7 @@ export default function AddComment({new_id}: {new_id: string}) {
     const [comment, setComment] = useState("");
     const [commentImage, setCommentImage] = useState<File>();
     const [message, setMessage] = useState("");
+    const [error, setError] = useState("");
     console.log(comment);
     const onSubmit = async (e: FormEvent<HTMLFormElement>) => {
         e.preventDefault();
@@ -25,7 +27,12 @@ export default function AddComment({new_id}: {new_id: string}) {
             formData.append("image", commentImage);
         }
         const callApi = await addComment(formData);
+        if(callApi.error) {
+            setError(callApi.error);
+            setMessage("");
+        }
         setMessage(callApi.message);
+        setError("");
         router.refresh();
 
     }
@@ -37,8 +44,13 @@ export default function AddComment({new_id}: {new_id: string}) {
                     <TextInput type="text" placeholder="type a comment" setValue={setComment} />
                     <FileInput  changed={setCommentImage} icon="/images/comments/imageFile.ico" />
                     <SubmitButton title="Save" height={30} width={50}/>
-                    <label>{message}</label>
                 </form>
+            }
+            {
+                message !== "" && <TimedNotification bg="rgba(0, 0, 0, 0.5)" color="white" duration={5000} message={message} />
+            }
+            {
+                error !== "" && <TimedNotification bg="rgba(214, 1, 1, 0.5)" color="white" duration={5000} message={error} />
             }
         </div>
     );
