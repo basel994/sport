@@ -26,6 +26,16 @@
     flex-direction: column;
     gap: 0.5rem;
 }
+.dateContainer {
+    display: flex;
+    flex-direction: column;
+    gap: 0.5rem;
+}
+.updated {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+}
 .date {
     color: rgb(102, 99, 99);
     font-size: 0.8rem;

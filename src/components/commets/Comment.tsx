@@ -14,7 +14,13 @@ export default function Comment({comment, userDetails}: {comment: commentType, u
                 }
                 <h4>{userDetails?.name}</h4>
             </div>
-            <p className={styles.date}>{dateForm(comment.created_at)}</p>
+            <div className={styles.dateContainer}>
+                <p className={styles.date}>{dateForm(comment.created_at)}</p>
+                {comment.updated_at && <div className={styles.updated}>
+                    <Image src="/images/buttons/edit.ico" alt="" width={20} height={20} />
+                    <p className={styles.date}>Edited</p>
+                </div>}
+            </div>
         </div>
         <p>{comment.content}</p>
         {

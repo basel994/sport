@@ -42,7 +42,8 @@ export async function PATCH(request: NextRequest, { params }: { params: { id: st
             if(oldImage) {
                 const result = await sql`  
                 UPDATE comments
-                SET content = ${newContent}  
+                SET content = ${newContent},
+                updated_at = CURRENT_TIMESTAMP  
                 WHERE id = ${parseInt(params.id)}  
                 RETURNING *  
                 `;
@@ -56,7 +57,8 @@ export async function PATCH(request: NextRequest, { params }: { params: { id: st
                 const result = await sql`  
                 UPDATE comments
                 SET content = ${newContent}, 
-                image = ${null} 
+                image = ${null},
+                updated_at = CURRENT_TIMESTAMP 
                 WHERE id = ${parseInt(params.id)}  
                 RETURNING *  
                 `;

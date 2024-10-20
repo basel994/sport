@@ -5,4 +5,5 @@ export type commentType = {
     content: string;
     image: string;
     created_at: Date;
+    updated_at: Date;
 }
