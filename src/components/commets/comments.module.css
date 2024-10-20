@@ -41,6 +41,11 @@
     font-size: 0.8rem;
     font-weight: bold;
 }
+.edited {
+    color: rgb(148, 146, 146);
+    font-size: 0.5rem;
+    font-weight: bold;
+}
 .commentForm {
     display: flex;
     align-items: center;
